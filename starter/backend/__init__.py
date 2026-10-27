@@ -1,6 +1,7 @@
 import os
-from flask import Flask
+from flask import Flask 
 from flask_cors import CORS
+
 
 from .movies import movies_api
 
