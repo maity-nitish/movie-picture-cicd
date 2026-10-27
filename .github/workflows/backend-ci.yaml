@@ -35,7 +35,8 @@ jobs:
         run: pip install pipenv
 
       - name: Install dependencies
-        run: pipenv install --dev --deploy
+        run: pipenv install --dev --skip-lock
+        env: PIPENV_VENV_IN_PROJECT: "1"
 
       - name: Run linter
         run: pipenv run lint
