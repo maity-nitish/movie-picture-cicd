@@ -149,3 +149,9 @@ jobs:
       - name: Wait for rollout
         run: |
           kubectl rollout status deployment/backend --timeout=180s
+
+      - name: Show backend service URL
+        run: |
+          kubectl get service backend \
+            -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'
+          echo
