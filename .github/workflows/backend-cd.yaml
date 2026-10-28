@@ -150,6 +150,24 @@ jobs:
         run: |
           kubectl rollout status deployment/backend --timeout=180s
 
+      - name: Diagnose backend rollout
+        if: always()
+        run: |
+          echo "=== Deployment ==="
+          kubectl get deployment backend -o wide || true
+
+          echo "=== Pods ==="
+          kubectl get pods -o wide || true
+
+          echo "=== ReplicaSets ==="
+          kubectl get rs || true
+
+          echo "=== Deployment details ==="
+          kubectl describe deployment backend || true
+
+          echo "=== Recent events ==="
+          kubectl get events --sort-by=.lastTimestamp | tail -n 30 || true
+
       - name: Show backend service URL
         run: |
           kubectl get service backend \
